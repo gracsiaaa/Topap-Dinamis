@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - TopapStore</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">TopapStore</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="#">Cek Transaksi</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="content-wrapper" id="payment-page">
+            <div class="payment-box">
+                <h2>Segera Selesaikan Pembayaran</h2>
+                <p>Silakan lakukan pembayaran sesuai nominal di bawah ini:</p>
+
+                <div class="fake-payment-details">
+                    <h3 id="payment-method-title">Metode Pembayaran</h3>
+                    <img src="/Topap/img/qris.jpg" alt="QR Code">
+                    <p>Scan QR di atas menggunakan e-wallet Anda.</p>
+                </div>
+                
+                <div class="order-summary" style="width: 80%; margin: 0 auto 25px auto;">
+                    <h3>Detail Tagihan</h3>
+                    <div class="summary-item">  
+                        <span>Atas Nama:</span>
+                        <strong id="summary-name">...</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Kontak:</span>
+                        <strong id="summary-contact">...</strong>
+                    </div>
+                    <div class="summary-item summary-total">
+                        <span>Total Bayar:</span>
+                        <strong id="summary-total-price">...</strong>
+                    </div>
+                </div>
+
+                <a href="index.php" class="submit-button" style="background-color: #198754;">Selesai (Kembali ke Home)</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TopapStore. Semua hak cipta dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

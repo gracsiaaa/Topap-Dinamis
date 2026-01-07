@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /**
-     * ==========================================================
-     * 1. UTILITIES & GLOBAL FUNCTIONS
-     * ==========================================================
-     */
-
-    // Fungsi untuk memformat angka ke Rupiah
     const formatRupiah = (number) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -15,11 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(number);
     };
 
-    /**
-     * ==========================================================
-     * 2. FITUR SEARCH (index.php)
-     * ==========================================================
-     */
     const searchInput = document.getElementById('search-input');
     const gameListContainer = document.getElementById('game-list-container');
 
@@ -33,50 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 game.style.display = title.includes(query) ? 'block' : 'none';
             });
         });
-
-        // Mencegah reload jika tombol cari diklik
         const searchBtn = document.querySelector('.search-bar button');
         if (searchBtn) searchBtn.addEventListener('click', (e) => e.preventDefault());
     }
 
-    /**
-     * ==========================================================
-     * 3. HALAMAN PRODUK (ml.php, dll)
-     * ==========================================================
-     */
     const orderForm = document.getElementById('order-form');
-    // Di dalam script.js
-    if (orderForm) {
-        orderForm.addEventListener('submit', (e) => {
-            // AMBIL DATA UNTUK VALIDASI
-            const userId = document.getElementById('user_id').value;
-            const selectedNominal = document.querySelector('input[name="nominal"]:checked');
-            const selectedPayment = document.querySelector('input[name="payment"]:checked');
-
-            // VALIDASI SEDERHANA
-            if (!userId || !selectedNominal || !selectedPayment) {
-                e.preventDefault(); // Hentikan submit HANYA jika data tidak lengkap
-                alert('Harap lengkapi semua data!');
-                return;
-            }
-
-            // SIMPAN KE LOCALSTORAGE (Opsional, jika Anda masih butuh data di sisi client)
-            const orderData = {
-                userId: userId,
-                productName: selectedNominal.dataset.name,
-                priceFormatted: formatRupiah(selectedNominal.dataset.price)
-                // ... tambahkan data lain jika perlu
-            };
-            localStorage.setItem('currentOrder', JSON.stringify(orderData));
-
-            // JANGAN panggil e.preventDefault() di sini agar form lanjut mengirim data ke payment.php
-        });
-    }
     if (orderForm) {
         const nominalGrid = document.getElementById('nominal-grid');
         const priceDisplay = document.getElementById('total-price');
 
-        // Update harga saat pilihan nominal berubah
         nominalGrid.addEventListener('change', (e) => {
             if (e.target.name === 'nominal') {
                 const price = parseInt(e.target.dataset.price, 10);
@@ -84,46 +37,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Handle Submit Form Produk
         orderForm.addEventListener('submit', (e) => {
-            // Jika Anda ingin data disimpan ke database via PHP, 
-            // biarkan form submit secara normal ke checkout.php.
-            // Kode di bawah ini berguna jika Anda masih ingin memakai localStorage.
+            const userId = document.getElementById('user_id').value;
+            const zoneInput = document.getElementById('zone_id'); 
+            const zoneId = zoneInput ? zoneInput.value : '';
 
             const selectedNominal = document.querySelector('input[name="nominal"]:checked');
             const selectedPayment = document.querySelector('input[name="payment"]:checked');
-            const userId = document.getElementById('user_id').value;
-            const zoneId = document.getElementById('zone_id').value;
 
-            if (!selectedNominal || !selectedPayment) {
-                e.preventDefault();
-                alert('Harap pilih nominal dan metode pembayaran!');
-                return;
+            if (!userId) {
+                alert('Harap isi ID / Username Anda!');
+                e.preventDefault(); return;
             }
 
+            if (zoneInput && !zoneId) {
+                alert('Harap isi Zone ID / Server!');
+                e.preventDefault(); return;
+            }
+
+            if (!selectedNominal || !selectedPayment) {
+                alert('Harap pilih nominal dan metode pembayaran!');
+                e.preventDefault(); return;
+            }
+
+            const fullId = zoneInput ? `${userId} (${zoneId})` : userId;
+
             const orderData = {
-                userId: `${userId} (${zoneId})`,
+                userId: fullId,
                 productName: selectedNominal.dataset.name,
                 paymentName: selectedPayment.dataset.name,
                 priceFormatted: formatRupiah(selectedNominal.dataset.price)
             };
 
             localStorage.setItem('currentOrder', JSON.stringify(orderData));
-
-            // Catatan: Jika form memiliki action="checkout.php", 
-            // e.preventDefault() tidak perlu dipanggil agar PHP bisa menerima data POST.
         });
     }
 
-    /**
-     * ==========================================================
-     * 4. HALAMAN CHECKOUT & PEMBAYARAN
-     * ==========================================================
-     */
     const checkoutPage = document.getElementById('checkout-page');
     const paymentPage = document.getElementById('payment-page');
 
-    // Logika Pengisian Data di Halaman Checkout/Pembayaran
     if (checkoutPage || paymentPage) {
         const orderData = JSON.parse(localStorage.getItem('currentOrder'));
 
@@ -133,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Mapping ID elemen ke data yang sesuai
         const dataMap = {
             'summary-user-id': orderData.userId,
             'summary-product': orderData.productName,
@@ -144,13 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'summary-contact': orderData.customerContact
         };
 
-        // Isi otomatis elemen yang ada di halaman tersebut
         Object.keys(dataMap).forEach(id => {
             const el = document.getElementById(id);
             if (el && dataMap[id]) el.textContent = dataMap[id];
         });
 
-        // Handle form tambahan di checkout-page (Data Diri)
         const checkoutForm = document.getElementById('checkout-form');
         if (checkoutForm) {
             checkoutForm.addEventListener('submit', (e) => {

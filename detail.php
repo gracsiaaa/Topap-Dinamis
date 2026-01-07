@@ -1,20 +1,15 @@
 <?php
 include 'config.php';
 
-// 1. Tangkap ID dari URL (contoh: detail.php?id=1)
 $id_game = isset($_GET['id']) ? mysqli_real_escape_string($conn, $_GET['id']) : 0;
-
-// 2. Ambil data kategori game tersebut
 $query_cat = mysqli_query($conn, "SELECT * FROM categories WHERE id = '$id_game'");
 $data_game = mysqli_fetch_assoc($query_cat);
 
-// 3. Jika ID tidak valid, lempar balik ke home
 if (!$data_game) {
   header("Location: index.php");
   exit;
 }
 
-// 4. Ambil produk yang hanya milik game ini
 $query_prod = mysqli_query($conn, "SELECT * FROM products WHERE category_id = '$id_game'");
 ?>
 
@@ -46,17 +41,28 @@ $query_prod = mysqli_query($conn, "SELECT * FROM products WHERE category_id = '$
       </section>
 
       <form id="order-form" action="payment.php" method="POST">
+
         <section class="form-section">
           <h3 class="section-title"><span>1</span>Lengkapi Data Akun</h3>
+
           <div class="input-group">
-            <div class="input-field">
-              <label for="user_id">User ID</label>
-              <input type="number" id="user_id" name="user_id" placeholder="Masukkan ID" required>
+            <div class="input-field" style="width: <?php echo ($data_game['tipe_input'] == 'id_only') ? '100%' : '50%'; ?>;">
+              <label for="user_id">
+                <?php
+                if ($data_game['slug'] == 'valorant') echo 'Riot ID';
+                elseif ($data_game['slug'] == 'roblox') echo 'Username Roblox';
+                else echo 'User ID';
+                ?>
+              </label>
+              <input type="text" id="user_id" name="user_id" placeholder="Masukkan Data..." required>
             </div>
-            <div class="input-field">
-              <label for="zone_id">Zone ID</label>
-              <input type="number" id="zone_id" name="zone_id" placeholder="Zone ID" required>
-            </div>
+
+            <?php if ($data_game['tipe_input'] == 'id_server') : ?>
+              <div class="input-field">
+                <label for="zone_id">Zone ID</label>
+                <input type="number" id="zone_id" name="zone_id" placeholder="Contoh: 1234" required>
+              </div>
+            <?php endif; ?>
           </div>
         </section>
 
@@ -98,6 +104,12 @@ $query_prod = mysqli_query($conn, "SELECT * FROM products WHERE category_id = '$
       </form>
     </div>
   </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 TopapStore. Semua hak cipta dilindungi.</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>

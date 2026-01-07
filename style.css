@@ -357,13 +357,63 @@ body {
 }
 
 /* 7. Footer (Digunakan di semua halaman) */
+/* --- FOOTER MODERN --- */
 .footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 30px;
-    color: var(--text-muted);
+    background: #0b0b14; /* Lebih gelap dari background utama */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 0;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Agar rapi di HP */
+    gap: 20px;
+}
+
+.footer-left h3 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.footer-left p {
+    color: #888;
     font-size: 0.9rem;
-    border-top: 1px solid rgba(139, 130, 154, 0.2);
+}
+
+.footer-contact {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-contact a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-contact a:hover {
+    color: #6C63FF; /* Warna Ungu Neon Tema Anda */
+    transform: translateY(-2px);
+}
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-contact {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* =====================================

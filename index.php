@@ -33,7 +33,6 @@ $query_all = mysqli_query($conn, "SELECT * FROM categories ORDER BY nama_game AS
                 <input type="text" id="search-input" placeholder="Cari game...">
                 <button><i class="fas fa-search"></i></button>
             </div>
-            <nav><a href="index.php">Home</a></nav>
         </div>
     </header>
 
@@ -59,9 +58,33 @@ $query_all = mysqli_query($conn, "SELECT * FROM categories ORDER BY nama_game AS
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container"><p>&copy; 2025 TopapStore. All Rights Reserved.</p></div>
-    </footer>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            
+            <div class="footer-left">
+                <h3>TopapStore</h3>
+                <p>&copy; 2025 All Rights Reserved.</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">Terpercaya & Instan.</p>
+            </div>
+
+            <div class="footer-contact">
+                <a href="https://wa.me/628123456789" target="_blank">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem; color: #25D366;"></i> WhatsApp
+                </a>
+                
+                <a href="https://instagram.com/username_anda" target="_blank">
+                    <i class="fab fa-instagram" style="font-size: 1.2rem; color: #E1306C;"></i> Instagram
+                </a>
+                
+                <a href="mailto:admin@topapstore.com">
+                    <i class="fas fa-envelope" style="font-size: 1.2rem; color: #00F0FF;"></i> Email
+                </a>
+            </div>
+
+        </div>
+    </div>
+</footer>
     <script src="script.js"></script>
 </body>
 </html>

@@ -105,11 +105,33 @@ $query_prod = mysqli_query($conn, "SELECT * FROM products WHERE category_id = '$
     </div>
   </main>
 
-  <footer class="footer">
+<footer class="footer">
     <div class="container">
-      <p>&copy; 2025 TopapStore. Semua hak cipta dilindungi.</p>
+        <div class="footer-content">
+            
+            <div class="footer-left">
+                <h3>TopapStore</h3>
+                <p>&copy; 2025 All Rights Reserved.</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">Terpercaya & Instan.</p>
+            </div>
+
+            <div class="footer-contact">
+                <a href="https://wa.me/6281357316942" target="_blank">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem; color: #25D366;"></i> WhatsApp
+                </a>
+                
+                <a href="https://instagram.com/gracsiaaa" target="_blank">
+                    <i class="fab fa-instagram" style="font-size: 1.2rem; color: #E1306C;"></i> Instagram
+                </a>
+                
+                <a href="mailto:gracsiaandhika0207@gmail.com">
+                    <i class="fas fa-envelope" style="font-size: 1.2rem; color: #00F0FF;"></i> Email
+                </a>
+            </div>
+
+        </div>
     </div>
-  </footer>
+</footer>
 
   <script src="script.js"></script>
 </body>

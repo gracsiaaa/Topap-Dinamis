@@ -124,7 +124,6 @@ $query_all = mysqli_query($conn, "SELECT * FROM categories ORDER BY nama_game AS
                 <input type="text" id="search-input" placeholder="Cari game...">
                 <button><i class="fas fa-search"></i></button>
             </div>
-            <nav><a href="index.php">Home</a></nav>
         </div>
     </header>
 
@@ -170,8 +169,8 @@ $query_all = mysqli_query($conn, "SELECT * FROM categories ORDER BY nama_game AS
                     <p>&copy; 2025 All Rights Reserved.</p>
                 </div>
                 <div class="footer-contact">
-                    <a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://wa.me/6281357316942"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://instagram.com/gracsiaaa"><i class="fab fa-instagram"></i> Instagram</a>
                 </div>
             </div>
         </div>
